@@ -43,11 +43,10 @@ def push_changes(repo):
 
 def main():
 
-    print(local_repo_directory)
-    repo = Repo(search_parent_directories=True)
-
     # clone the repository
     clone_repo()
+
+    repo = Repo.init(local_repo_directory)
 
     # update file
     update_file()
