@@ -2,8 +2,8 @@ import os
 from git import Repo
 import time
 
-local_repo_directory = os.path.join(os.getcwd(), '')
-destination = 'master'
+local_repo_directory = os.path.join(os.getcwd(), 'GitpythonTuto')
+destination = 'main'
 
 
 def clone_repo():
@@ -43,7 +43,8 @@ def push_changes(repo):
 
 def main():
 
-    repo = Repo(local_repo_directory)
+    print(local_repo_directory)
+    repo = Repo(search_parent_directories=True)
 
     # clone the repository
     clone_repo()
