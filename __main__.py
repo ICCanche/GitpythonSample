@@ -2,8 +2,8 @@ import os
 from git import Repo
 import time
 
-local_repo_directory = os.path.join(os.getcwd(), 'GitpythonTuto')
-destination = 'main'
+local_repo_directory = os.getcwd()
+destination = 'master'
 
 
 def clone_repo():
