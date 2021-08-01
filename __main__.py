@@ -2,7 +2,7 @@ import os
 from git import Repo
 import time
 
-local_repo_directory = os.getcwd()
+local_repo_directory = os.path.join(os.getcwd(), '')
 destination = 'master'
 
 
