@@ -21,6 +21,10 @@ def clone_repo():
 def chdirectory(path):
     os.chdir(path)
 
+def create_branch(repo, branch_name):
+    print("Creating a new branch with id name " + branch_name)
+    current = repo.create_head(branch_name)
+    current.checkout()
 
 def update_file():
     print("Modifying the file")
@@ -36,9 +40,9 @@ def add_and_commit_changes(repo):
     repo.git.commit("-m", "Adding a new line to the file.text file")
 
 
-def push_changes(repo):
+def push_changes(repo, branch_name):
     print("Push changes")
-    repo.git.push("--set-upstream", 'origin', destination)
+    repo.git.push("--set-upstream", 'origin', branch_name)
 
 
 def main():
@@ -47,6 +51,10 @@ def main():
     clone_repo()
 
     repo = Repo.init(local_repo_directory)
+    branch_name = "feature/update-txt-file" + str(time.time())
+
+    #create a new branch
+    create_branch(repo, branch_name)
 
     # update file
     update_file()
@@ -55,7 +63,7 @@ def main():
     add_and_commit_changes(repo)
 
     # push changes
-    push_changes(repo)
+    push_changes(repo, branch_name)
 
 
 if __name__ == "__main__":
