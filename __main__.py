@@ -7,9 +7,11 @@ from gidgethub import routing, sansio
 from gidgethub import aiohttp as gh_aiohttp
 import asyncio
 
-local_repo_directory = os.path.join(os.getcwd(), 'GitpythonTuto')
-destination = 'main'
+user_name = config('USER_NAME')
+repository = config('REPOSITORY')
 
+local_repo_directory = os.path.join(os.getcwd(), repository)
+destination = 'main'
 
 def clone_repo():
     if os.path.exists(local_repo_directory):
@@ -55,14 +57,14 @@ async def setup_github(branch_name):
     api_token = config('GH_API_TOKEN')
 
     async with aiohttp.ClientSession() as session:
-        gh = gh_aiohttp.GitHubAPI(session, "ICCanche", oauth_token=api_token)
+        gh = gh_aiohttp.GitHubAPI(session, user_name, oauth_token=api_token)
         
         #create-pull-request
         await create_pull_request(gh, branch_name, api_token)
 
 async def create_pull_request(gh, branch_name, token):
     print("Creating PR from: " + branch_name)
-    response = await gh.post('/repos/{owner}/{repo}/pulls', url_vars={'owner': 'ICCanche', 'repo': 'GitpythonTuto'}, data = {
+    response = await gh.post('/repos/{owner}/{repo}/pulls', url_vars={'owner': user_name, 'repo': repository}, data = {
         'title': 'Addition of a new line to the file.txt',
         'head': branch_name,
         'body': '\n #What does this PR do? \n Add a new text line to the main text file',
